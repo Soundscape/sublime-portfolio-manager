@@ -37,13 +37,21 @@
   gulp.task('watch', ['temp'], function () {
     gulp.watch(paths.coffee, ['temp']);
     gulp.watch(paths.cjsx, ['temp']);
-    gulp.watch(paths.jade, ['temp']);
-    gulp.watch(paths.sass, ['temp']);
+    gulp.watch(paths.views, ['views']);
+    gulp.watch(paths.sass, ['sass']);
   });
 
-  gulp.task('build', 'Builds the application', ['clean', 'views', 'scripts', 'sass']);
+  gulp.task('run', ['temp'], function() {
+    var svr = plugins.liveServer.new('./out/server.js');
+    svr.start();
 
-  gulp.task('default', ['temp']);
+    gulp.watch(['./out/app.js', './out/app.css', './out/**/*.html'], svr.notify);
+    gulp.watch(['./out/server.js'], svr.start);
+  });
+
+  gulp.task('build', 'Builds the application', ['clean', 'views', 'browserify', 'sass']);
+
+  gulp.task('default', ['watch', 'run']);
 
   // Conversion tasks
   gulp.task('views', function() {
