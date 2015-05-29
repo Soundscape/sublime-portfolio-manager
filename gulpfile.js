@@ -72,7 +72,7 @@
   gulp.task('browserify', 'Creates a Browserify bundle', ['coffee', 'cjsx'], function () {
     return browserify(paths.bundle)
       .bundle()
-      .pipe(source('bundle.js'))
+      .pipe(source('app.js'))
       .pipe(gulp.dest(paths.out))
       .on('error', plugins.util.log.bind(plugins.util, 'Browserify Error'));
   });
