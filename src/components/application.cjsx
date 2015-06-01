@@ -3,17 +3,17 @@ Fluxxor = require 'fluxxor'
 TodoItem = require './todo.item'
 
 window.FluxMixin = FluxMixin = Fluxxor.FluxMixin(React)
-StoreWatchMixin = Fluxxor.StoreWatchMixin;
+window.StoreWatchMixin = StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 module.exports = Application = React.createClass
-  mixins: [FluxMixin, StoreWatchMixin("TodoStore")]
+  mixins: [FluxMixin, StoreWatchMixin 'TodoStore']
 
   getInitialState: () ->
-    newTodoText: ""
+    newTodoText: ''
 
   getStateFromFlux: () ->
     flux = @getFlux()
-    flux.store("TodoStore").getState()
+    flux.store('TodoStore').getState()
 
   render: () ->
     todos = @state.todos

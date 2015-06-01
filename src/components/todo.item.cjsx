@@ -1,4 +1,5 @@
 React = require 'react'
+flux = require '../modules/flux'
 
 module.exports = TodoItem = React.createClass
   mixins: [window.FluxMixin]
@@ -8,9 +9,9 @@ module.exports = TodoItem = React.createClass
 
   render: () ->
     style =
-      textDecoration: if @props.todo.complete then "line-through" else ""
+      textDecoration: if @props.todo.complete then 'line-through' else ''
 
     return <span style={style} onClick={@onClick}>{@props.todo.text}</span>
 
   onClick: () ->
-    window.flux.actions.toggleTodo(@props.todo.id)
+    flux.actions.toggleTodo(@props.todo.id)
