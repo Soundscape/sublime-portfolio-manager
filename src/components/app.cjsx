@@ -1,4 +1,13 @@
 React = require 'react'
-Sample = require './sample'
+Fluxxor = require 'fluxxor'
+stores = require '../modules/stores'
+actions = require '../modules/actions'
+Application = require './application'
 
-React.render <Sample />, document.getElementById 'content'
+window.flux = flux = new Fluxxor.Flux stores, actions
+
+flux.on 'dispatch', (type, payload) ->
+  if console && console.log
+    console.log '[Dispatch]', type, payload
+
+React.render <Application flux={flux} />, document.getElementById 'content'

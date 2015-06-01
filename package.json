@@ -55,6 +55,7 @@
     "csurf": "^1.7.0",
     "domain": "0.0.1",
     "express": "^4.12.3",
+    "fluxxor": "^1.5.4",
     "handlebars": "^3.0.0",
     "helmet": "^0.7.0",
     "http": "0.0.0",
