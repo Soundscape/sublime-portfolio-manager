@@ -1,5 +1,5 @@
 {
-  "name": "sublime-boilerplate",
+  "name": "sublime-portfolio-manager",
   "version": "0.0.1",
   "description": "",
   "main": "./out/server",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://Soundscape:Rac12gat_sal!@github.com/Soundscape/sublime-boilerplate.git"
+    "url": "git+https://Soundscape:Rac12gat_sal!@github.com/Soundscape/sublime-portfolio-manager.git"
   },
   "author": "soundscape",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Soundscape/sublime-boilerplate/issues"
+    "url": "https://github.com/Soundscape/sublime-portfolio-manager/issues"
   },
-  "homepage": "https://github.com/Soundscape/sublime-boilerplate#readme",
+  "homepage": "https://github.com/Soundscape/sublime-portfolio-manager#readme",
   "devDependencies": {
     "browserify": "^9.0.8",
     "browserify-shim": "^3.8.5",

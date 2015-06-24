@@ -1,2 +1,2 @@
-# sublime-boilerplate
-Stater project for sublime apps.
+# sublime-portfolio-manager
+Manager for my portfolio
