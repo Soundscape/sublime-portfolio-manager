@@ -63,8 +63,13 @@
     "morgan": "^1.5.2",
     "nconf": "^0.7.1",
     "react": "^0.13.3",
+    "react-router": "^0.13.3",
     "sublime-application": "0.0.9",
+    "sublime-core": "0.0.29",
     "sugar": "^1.4.1",
+    "tcomb": "^1.0.3",
+    "tcomb-form": "^0.5.5",
+    "tcomb-validation": "^1.0.4",
     "winston": "^0.9.0"
   },
   "browser": {
