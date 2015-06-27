@@ -7,7 +7,7 @@ struct = (locals)  ->
   inputs = locals.inputs
 
   return (
-    <fieldset className="form-struct project">
+    <div className="form-struct project">
       <div className="form-row title">
         {inputs.title}
       </div>
@@ -20,7 +20,7 @@ struct = (locals)  ->
       <div className="form-row summary">
         {inputs.summary}
       </div>
-    </fieldset>
+    </div>
   )
 
 module.exports =
