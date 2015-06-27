@@ -5,7 +5,8 @@ Fluxxor = require 'fluxxor'
 
 ItemView = React.createClass
   mixins: [
-    Fluxxor.FluxMixin(React)
+    Fluxxor.FluxMixin React
+    Fluxxor.StoreWatchMixin 'project'
   ]
 
   contextTypes:
@@ -13,7 +14,10 @@ ItemView = React.createClass
 
   getStateFromFlux: () ->
     args = @context.router.getCurrentParams()
-    return item: {}
+    store = @getFlux().store 'project'
+
+    item: store.items[args.id]
+    id: args.id
 
   componentWillReceiveProps: (nextProps) ->
     @setState @getStateFromFlux()
@@ -21,18 +25,18 @@ ItemView = React.createClass
   render: () ->
     item = @state.item
 
-    if (item == null)
+    if !item
       return @renderNotFound()
 
-    description = (item.description or '').replace /\n/g, '<br />'
+    summary = (item.summary or '').replace /\n/g, '<br />'
 
-    return @renderWithLayout(
+    @renderWithLayout(
       <div>
-        <h1>Item</h1>
-        <p dangerouslySetInnerHTML={{__html: description}} />
+        <h1>{item.title}</h1>
+        <p dangerouslySetInnerHTML={{ __html: summary }} />
 
         <p>
-          <Link to="edit-item" params={{id: 1}}>Edit</Link>
+          <Link to="edit-item" params={{id: @state.id}}>Edit</Link>
           {" | "}<Link to="home" onClick={@deleteItem}>Delete</Link>
         </p>
       </div>
@@ -55,7 +59,7 @@ ItemView = React.createClass
 
   deleteItem: (e) ->
     if (confirm 'Really delete this item?')
-      console.log 'Remove item'
+      @getFlux().actions.project.remove @state.id
     else
       e.preventDefault()
 

@@ -5,6 +5,7 @@ RouteHandler = Router.RouteHandler
 Link = Router.Link
 Fluxxor = require 'fluxxor'
 schema = require '../schema'
+forms = require '../forms'
 
 AddView = React.createClass
   mixins: [
@@ -18,6 +19,7 @@ AddView = React.createClass
     return @renderWithLayout(
       <div>
         <form onSubmit={@onSubmit}>
+          <t.form.Form ref="form" type={schema.Project} options={forms.Project} />
           <input type="submit" value="Save" />
         </form>
       </div>
@@ -38,12 +40,7 @@ AddView = React.createClass
 
     newItem = @refs.form.getValue()
     if (newItem)
-      console.log 'Add item'
-
-  deleteItem: (e) ->
-    if (confirm 'Really delete this recipe?')
-      console.log 'Remove item'
-    else
-      e.preventDefault()
+      @getFlux().actions.project.add newItem
+      @getFlux().actions.route.transition '/'
 
 module.exports = AddView

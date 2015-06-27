@@ -4,13 +4,14 @@ Router = require 'react-router'
 RouteHandler = Router.RouteHandler
 Link = Router.Link
 Fluxxor = require 'fluxxor'
-
+forms = require '../forms'
 schema = require '../schema'
 stores = require '../stores'
 
 EditView = React.createClass
   mixins: [
     Fluxxor.FluxMixin React
+    Fluxxor.StoreWatchMixin 'project'
   ]
 
   contextTypes:
@@ -18,7 +19,10 @@ EditView = React.createClass
 
   getStateFromFlux: () ->
     args = @context.router.getCurrentParams()
-    return item: {}
+    store = @getFlux().store 'project'
+
+    item: store.items[args.id]
+    id: args.id
 
   componentWillReceiveProps: (nextProps) ->
     @setState @getStateFromFlux()
@@ -26,28 +30,29 @@ EditView = React.createClass
   render: () ->
     item = @state.item;
 
-    if (item == null)
+    if !item
       return @renderNotFound()
 
-    return @renderWithLayout(
+    @renderWithLayout(
       <div>
         <form onSubmit={@onSubmit}>
+          <t.form.Form ref="form" type={schema.Project} options={forms.Project} value={item} />
           <input type="submit" value="Save" />
         </form>
 
         <p>
-          <Link to="home" onClick={deleteItem}>Delete Item</Link>
+          <Link to="home" onClick={@deleteItem}>Delete Item</Link>
         </p>
       </div>
     )
 
   renderNotFound: () ->
-    return @renderWithLayout(
+    @renderWithLayout(
       <div>That item was not found.</div>
     )
 
   renderWithLayout: (content) ->
-    return (
+    (
       <div>
         {content}
         <hr />
@@ -59,14 +64,14 @@ EditView = React.createClass
   onSubmit: (e) ->
     e.preventDefault()
 
-    newItem = @refs.form.getValue()
-    if (newItem)
-      console.log 'Edit item'
-      @context.router.transitionTo 'item', id: 1
+    item = @refs.form.getValue()
+    if (item)
+      @getFlux().actions.project.edit @state.id, item
+      @context.router.transitionTo 'item', id: @state.id
 
   deleteItem: (e) ->
     if (confirm 'Really delete this item?')
-      console.log 'Remove item'
+      @getFlux().actions.project.remove @state.id
     else
       e.preventDefault()
 

@@ -35,8 +35,8 @@
   });
 
   gulp.task('watch', ['temp'], function () {
-    gulp.watch(paths.coffee, ['temp']);
-    gulp.watch(paths.cjsx, ['temp']);
+    gulp.watch(paths.coffee, ['browserify']);
+    gulp.watch(paths.cjsx, ['cjsx', 'browserify']);
     gulp.watch(paths.views, ['views']);
     gulp.watch(paths.sass, ['sass']);
   });

@@ -66,6 +66,7 @@
     "react-router": "^0.13.3",
     "sublime-application": "0.0.9",
     "sublime-core": "0.0.29",
+    "sublime-net": "0.0.20",
     "sugar": "^1.4.1",
     "tcomb": "^1.0.3",
     "tcomb-form": "^0.5.5",

@@ -7,29 +7,34 @@ Fluxxor = require 'fluxxor'
 ListView = React.createClass
   mixins: [
     Fluxxor.FluxMixin React
+    Fluxxor.StoreWatchMixin 'project'
   ]
 
-  getInitialState: () ->
-    return items: [{ id: 1 },{ id: 2 }]
-
   getStateFromFlux: () ->
-    return items: [{ id: 1 },{ id: 2 }]
+    store = @getFlux().store 'project'
+
+    items: store.items
+    id: store.id
 
   render: () ->
-    return (
+    keys = Object.getOwnPropertyNames @state.items
+
+    (
       <div>
         <h1>Items</h1>
-        <ul>{@state.items.map @renderItemLink}</ul>
+        <ul>{keys.map @renderItemLink}</ul>
         <div>
           <Link to="add-item">Add New Item</Link>
         </div>
       </div>
     )
 
-  renderItemLink: (item) ->
-    return (
-      <li key={item.id}>
-        <Link to="item" params={{id: item.id}}>Item</Link>
+  renderItemLink: (id) ->
+    item = @state.items[id]
+
+    (
+      <li key={id}>
+        <Link to="item" params={{id: id}}>{item.title}</Link>
       </li>
     )
 
