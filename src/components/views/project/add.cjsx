@@ -6,6 +6,9 @@ Link = Router.Link
 Fluxxor = require 'fluxxor'
 schema = require '../../schema'
 forms = require '../../forms'
+$ = require 'jquery'
+velocity = require 'velocity-animate'
+uipack = require 'velocity-ui-pack'
 
 AddView = React.createClass
   mixins: [
@@ -14,6 +17,10 @@ AddView = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+
+  componentDidMount: () ->
+    el = @refs.container.getDOMNode()
+    velocity el, opacity: 1, 300
 
   render: () ->
     return @renderWithLayout(
@@ -33,7 +40,7 @@ AddView = React.createClass
 
   renderWithLayout: (content) ->
     return (
-      <div className="row">
+      <div className="row" ref="container" style={opacity: 0}>
         <div className="col s12">
           {content}
           <div className="fixed-action-btn" style={bottom: '45px', right: '24px'}>

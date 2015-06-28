@@ -3,6 +3,9 @@ Router = require 'react-router'
 RouteHandler = Router.RouteHandler
 Link = Router.Link
 Fluxxor = require 'fluxxor'
+$ = require 'jquery'
+velocity = require 'velocity-animate'
+uipack = require 'velocity-ui-pack'
 
 ListView = React.createClass
   mixins: [
@@ -20,7 +23,7 @@ ListView = React.createClass
     keys = Object.getOwnPropertyNames @state.items
 
     (
-      <div className="row">
+      <div className="row" ref="container" style={opacity: 0}>
         <div className="col s12">
           <div className="collection with-header">
             <div className="collection-header"><h4>Projects</h4></div>
@@ -38,11 +41,19 @@ ListView = React.createClass
       </div>
     )
 
+  componentDidUpdate: (props, state) ->
+    $('.project-item').velocity 'transition.slideRightIn', stagger: 10
+
+  componentDidMount: () ->
+    el = @refs.container.getDOMNode()
+    velocity el, opacity: 1, 300
+    $('.project-item').velocity 'transition.slideRightIn', stagger: 10
+
   renderItemLink: (id) ->
     item = @state.items[id]
 
     (
-      <Link className="collection-item" key={id} to="item" params={{id: id}}>{item.title}</Link>
+      <Link className="collection-item project-item" key={id} to="item" params={{id: id}} style={opacity: 0, width: '100%'}>{item.title}</Link>
     )
 
 module.exports = ListView

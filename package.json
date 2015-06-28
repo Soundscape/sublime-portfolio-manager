@@ -71,6 +71,8 @@
     "tcomb": "^1.0.3",
     "tcomb-form": "^0.5.5",
     "tcomb-validation": "^1.0.4",
+    "velocity-animate": "^1.2.2",
+    "velocity-ui-pack": "^1.2.2",
     "winston": "^0.9.0"
   },
   "browser": {

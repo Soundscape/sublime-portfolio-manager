@@ -7,6 +7,9 @@ Fluxxor = require 'fluxxor'
 forms = require '../../forms'
 schema = require '../../schema'
 stores = require '../../stores'
+$ = require 'jquery'
+velocity = require 'velocity-animate'
+uipack = require 'velocity-ui-pack'
 
 EditView = React.createClass
   mixins: [
@@ -26,6 +29,10 @@ EditView = React.createClass
 
   componentWillReceiveProps: (nextProps) ->
     @setState @getStateFromFlux()
+
+  componentDidMount: () ->
+    el = @refs.container.getDOMNode()
+    velocity el, opacity: 1, 300
 
   render: () ->
     item = @state.item;
@@ -50,7 +57,7 @@ EditView = React.createClass
 
   renderNotFound: () ->
     @renderWithLayout(
-      <div className="row">
+      <div className="row" ref="container" style={opacity: 0}>
         <div className="col s12">
           <p className="flow-text">That item was not found.</p>
         </div>
@@ -59,7 +66,7 @@ EditView = React.createClass
 
   renderWithLayout: (content) ->
     (
-      <div className="row">
+      <div className="row" ref="container" style={opacity: 0}>
         <div className="col s12">
           {content}
           <div className="fixed-action-btn" style={bottom: '45px', right: '24px'}>

@@ -2,6 +2,9 @@ React = require 'react'
 Router = require 'react-router'
 Link = Router.Link
 Fluxxor = require 'fluxxor'
+$ = require 'jquery'
+velocity = require 'velocity-animate'
+uipack = require 'velocity-ui-pack'
 
 ItemView = React.createClass
   mixins: [
@@ -22,6 +25,10 @@ ItemView = React.createClass
   componentWillReceiveProps: (nextProps) ->
     @setState @getStateFromFlux()
 
+  componentDidMount: () ->
+    el = @refs.container.getDOMNode()
+    velocity el, opacity: 1, 300
+
   render: () ->
     item = @state.item
 
@@ -41,7 +48,7 @@ ItemView = React.createClass
 
   renderNotFound: () ->
     return @renderWithLayout(
-      <div className="row">
+      <div className="row" ref="container" style={opacity: 0}>
         <div className="col s12">
           <p className="flow-text">That item was not found.</p>
         </div>
@@ -50,7 +57,7 @@ ItemView = React.createClass
 
   renderWithLayout: (content) ->
     return (
-      <div className="row">
+      <div className="row" ref="container" style={opacity: 0}>
         <div className="col s12">
           {content}
           <div className="fixed-action-btn" style={bottom: '45px', right: '24px'}>
